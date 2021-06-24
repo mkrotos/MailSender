@@ -19,8 +19,12 @@ class MailSender {
         message.subject = mail.subject
         message.setText(mail.messageContent)
 
+        executeSafe { Transport.send(message) }
+    }
+
+    private fun executeSafe(command: () -> Unit) {
         try {
-            Transport.send(message)
+            command()
             println("message sent successfully....")
         } catch (ex: MessagingException) {
             println("message NOT sent....")

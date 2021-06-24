@@ -29,11 +29,12 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClassName = "com.krotos.MailSenderKt"
+    mainClassName = "com.krotos.MainKt"
 }
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "com.krotos.MailSenderKt"
+        attributes["Main-Class"] = "com.krotos.MainKt"
     }
+    from(configurations.compileClasspath.get().map { if (it.isDirectory()) it else zipTree(it) })
 }
